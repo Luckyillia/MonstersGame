@@ -1,0 +1,355 @@
+/*
+Author: Piotr Nowak aka ziccoss | webideas.pl
+*/
+
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap&subset=latin-ext');
+@import url('animate.min.css');
+
+/* Zmienne */
+:root
+{
+    --blue: #415593;
+    --brown: #4d2108;
+    --light-brown: #9c7750;
+    --gold: #c6901c;
+    --gray: #a8a8a8;
+    --green: #276f79;
+    --light-green: #57a7b3;
+    --mint: #57cbab;
+    --dark-mint: #288a78;
+    --red: #c72627;
+    --dark-red: #7d0b0c;
+    --item-height: 100px;
+    --bg-color: #b5e61d;
+}
+
+/* Reset */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Globalne */
+html, body
+{
+    height: 100%;
+}
+
+body
+{
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    background: #0f4032 url('../images/background.jpg') no-repeat top center;
+    color: #222;
+    line-height: 1.9;
+}
+
+.left  { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+
+/* Gra */
+.game
+{
+    width: 100%;
+    height: 100%;
+}
+
+/* Toolbar */
+.game .toolbar
+{
+    width: 100%;
+    padding: 10px;
+    background-color: #0f4032;
+    color: #fff;
+}
+
+.game .toolbar .bullet
+{
+    display: inline-block;
+    width: 16px;
+    margin: 5px;
+}
+
+.game .toolbar .bullet.used
+{
+    opacity: 0.5;
+}
+
+/* Cursor */
+.game .stage
+{
+    position: relative;
+    min-height: 540px;
+    cursor: url('../images/target.png'), auto;
+    z-index: 99;
+}
+
+.mouse-shot
+{
+    background: #fff;
+}
+
+/* Boxy */
+[class^='box']
+{
+    position: absolute;
+    z-index: 999;
+}
+
+.game .stage .box-1 { top: 150px; left: 3%;   }
+.game .stage .box-2 { top: 200px; left: 25%;  }
+.game .stage .box-3 { left: 45%;  bottom: 0%; }
+.game .stage .box-4 { right: 2%;  bottom: 1%; }
+.game .stage .box-5 { top: 100px; right: 21%; }
+.game .stage .box-6 { top: 140px; right: 40%; }
+
+/* Przeszkody */
+.rock, .block, .water, .wood
+{
+    position: relative;
+    z-index: 9;
+}
+
+.rock
+{
+    width: 100px;
+    height: 240px;
+    background-color: var(--gray);
+}
+
+.block
+{
+    width: 150px;
+    height: 150px;
+    background-color: var(--green);
+}
+
+.water
+{
+    width: 160px;
+    height: 100px;
+    background-color: var(--blue);
+}
+
+.wood
+{
+    width: 100px;
+    height: 320px;
+    background-color: var(--brown);
+}
+
+/* Monsters */
+.monster
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    overflow: hidden;
+    z-index: 1;
+    transition: top 0.3s ease-out, left 0.3s ease-out, right 0.3s ease-out;
+}
+
+.monster img
+{
+    width: 100%;
+    height: auto;
+}
+
+/* Typ 1 i 4 - wyskakuje z góry (domyślne) */
+.monster.visible
+{
+    top: -100px;
+}
+
+/* Typ 2 i 5 - wysuwa się z lewej */
+.monster-2,
+.monster-5
+{
+    top: 50%;
+    left: 0;
+    margin-left: 0;
+    transform: translateY(-50%);
+}
+
+.monster-2.visible,
+.monster-5.visible
+{
+    top: 50%;
+    left: -100px;
+}
+
+/* Typ 3 i 6 - wysuwa się z prawej */
+.monster-3,
+.monster-6
+{
+    top: 50%;
+    left: auto;
+    right: 0;
+    margin-left: 0;
+    transform: translateY(-50%);
+}
+
+.monster-3.visible,
+.monster-6.visible
+{
+    top: 50%;
+    right: -100px;
+}
+
+/* Modal */
+.overlay
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75) none repeat scroll 0 0;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.overlay-wrapper
+{
+    position: relative;
+    display: flex;
+    width: 80%;
+    height: 100%;
+    box-sizing: border-box !important;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.overlay-holder
+{
+    display: block;
+    width: 100%;
+}
+
+/* Modal Header */
+.overlay-header
+{
+    width: 100%;
+    padding: 10px 25px;
+    background-color: #489500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.overlay-header .title
+{
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.overlay-header img
+{
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+}
+
+.overlay-header a { color: #fff; }
+
+/* Modal Content */
+.overlay-content
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 200px;
+    padding: 25px;
+    background-color: #fff;
+    color: #444;
+}
+
+.overlay-content p
+{
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.overlay-content input
+{
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.overlay-content button
+{
+    background-color: var(--green);
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.overlay-content #btn-game-renew { display: none; }
+
+/* ---- Tabela ---- */
+.overlay-content .table-container
+{
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 20px;
+}
+
+.overlay-content table
+{
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.overlay-content table thead th
+{
+    position: sticky;
+    top: 0;
+    padding: 8px;
+    background-color: #489500;
+    color: #fff;
+    z-index: 1;
+}
+
+.overlay-content table tbody tr
+{
+    background-color: #f5f5f5;
+}
+
+.overlay-content table tbody tr:hover
+{
+    background-color: #c8e6a0;
+}
+
+.overlay-content table tbody tr td
+{
+    padding: 6px 8px;
+    text-align: center;
+}
+
+.overlay-content table tbody tr.current-player td
+{
+    font-weight: bold;
+    color: #489500;
+}

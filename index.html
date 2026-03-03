@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    </head>
+    <body>
+		<div class="game">
+			<div class="toolbar">
+				<div class="left">
+					<div class="time">Czas <span>0</span> s</div>
+					<div class="score">Punkty <span>0</span></div>				
+				</div>
+				<div class="right">
+					<div class="ammo"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="stage">
+				<div class="box-1">
+					<div class="rock"></div>
+					<div class="monster  monster-1">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>					
+				</div>
+				<div class="box-2">
+					<div class="block"></div>
+					<div class="monster  monster-2">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>					
+				</div>
+				<div class="box-3">
+					<div class="water"></div>
+					<div class="monster  monster-3">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>					
+				</div>
+				<div class="box-4">
+					<div class="wood"></div>
+					<div class="monster  monster-4">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>					
+				</div>
+				<div class="box-5">
+					<div class="block"></div>
+					<div class="monster  monster-5">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>					
+				</div>
+				<div class="box-6">
+					<div class="rock"></div>
+					<div class="monster  monster-6">
+						<img src="assets/images/monster.png" alt="monster">
+					</div>						
+				</div>				
+			</div>
+		</div>
+		<div class="overlay">
+			<div class="overlay-wrapper">
+				<div class="overlay-holder">
+					<div class="overlay-header">
+						<h2 class="title">New Game</h2>
+						<img src="assets/images/banner.png" alt="banner">
+					</div>
+					<div class="overlay-content">
+						<h2 class="result">Podaj swojego nicka</h2>
+						<input type="text" id="nickname" placeholder="Nickname">
+						<button id="btn-game-start" class="btn">Start</button>
+						<button id="btn-game-renew" class="btn">New Game</button>
+						<div class="table-container" style="display:none">
+							<table>
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nick</th>
+										<th>Punkty</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="assets/js/main.js"></script>
+    </body>
+</html>
