@@ -151,6 +151,7 @@ body
 .monster
 {
     position: absolute;
+    border: 2px solid green;
     top: 0;
     left: 50%;
     width: 100px;
@@ -206,6 +207,14 @@ body
 {
     top: 50%;
     right: -100px;
+}
+
+.boss{
+    border: 2px solid red;
+}
+
+.shoot{
+    border: 2px solid blue;
 }
 
 /* Modal */
@@ -303,9 +312,20 @@ body
     cursor: pointer;
 }
 
+.overlay-content .btn-game-info
+{
+    position: relative;
+    right: -50%;
+}
+
+.overlay-content #game-info
+{
+    display: none;
+}
+
 .overlay-content #btn-game-renew { display: none; }
 
-/* ---- Tabela ---- */
+/* Tabela */
 .overlay-content .table-container
 {
     width: 100%;

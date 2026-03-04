@@ -10,9 +10,17 @@ var listNicknamesPts = {};
 // Zmienne Stale
 const BULLET_IMG = 'assets/images/bullet.png';
 const BULLET_COUNT = 15;
+const MAX_TIME = 20;
+const COUNT_BOSS = Math.floor(MAX_TIME / 20) * 2;
 const RELOAD_SOUND = new Audio('assets/sounds/gun-reaload.mp3');
 const GUNSHOT_SOUND = new Audio('assets/sounds/shot.mp3');
 const PTS_WIN = 180;
+const BOSS_PTS = 20;
+const MONSTER_PTS = 10;
+const ROCK_PTS = 5;
+const BLOCK_PTS = 5;
+const WATER_PTS = 5;
+const WOOD_PTS = 5;
 
 // Init
 $(document).ready(function() {
@@ -44,13 +52,13 @@ $(document).ready(function() {
 		if (!$(this).hasClass('shoot')) {
 			if (ammo > 0) {
 				if ($(this).hasClass('boss')) {
-					pts += 20;
+					pts += BOSS_PTS;
 				} else {
-					pts += 10;
+					pts += MONSTER_PTS;
 				}
 			}
 			if ($(this).hasClass('boss')) {
-				hideBoss($(this)); // ✅ pełny reset bossa
+				hideBoss($(this));
 			} else {
 				$(this).find('img').attr('src', 'assets/images/monster.png');
 				$(this).removeClass('visible').addClass('shoot');
@@ -62,12 +70,19 @@ $(document).ready(function() {
 
     // Trafienie w przeszkodę (kara punktowa)
     $('.rock, .block, .water, .wood').click(function() {
-        if (ammo > 0) pts--;
+        if($(this).hasClass('rock')) pts -= ROCK_PTS;
+        if($(this).hasClass('block')) pts -= BLOCK_PTS;
+        if($(this).hasClass('water')) pts -= WATER_PTS;
+        if($(this).hasClass('wood')) pts -= WOOD_PTS;
         setPts(pts);
         showPts(pts);
     });
 
 	// UI
+
+    $('#btn-game-info').click(() => {
+        $('#game-info').slideToggle();
+    });
 
     // Nowa gra
     $('#btn-game-renew').click(() => {
@@ -106,12 +121,12 @@ $(document).ready(function() {
         $('.overlay').css('display', 'none');
 
         gameStart = true;
-        time = 20;
+        time = MAX_TIME;
         pts = 0;
 		ammo = BULLET_COUNT;
         setPts(pts);
         setTime(time);
-        randomTime = generateRandomTime(2, time);
+        randomTime = generateRandomTime(COUNT_BOSS, time);
 
         gameID = startMonster();
         timerID = startTimer();
@@ -134,7 +149,7 @@ function startMonster() {
         }
 
         $monster.toggleClass('visible');
-    }, 500);
+    }, 350);
 }
 
 function startTimer() {
@@ -218,6 +233,7 @@ function generateRandomTime(count, time) {
             times.push(rnd);
         }
     }
+    console.log(times);
     return times;
 }
 
@@ -255,7 +271,19 @@ function shoot() {
 }
 
 function setTime(time) {
-    $('.time > span').text(time);
+    if(time >= 60) {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+        $('.time > span').text(minutes + ':' + seconds);
+    } else {
+        if(time < 10) {
+            $('.time > span').text('0' + time);
+        } else if (time == 0) {
+            $('.time > span').text('0:00');
+        }else {
+            $('.time > span').text(time);
+        }
+    }
 }
 
 function showPts(pts) {

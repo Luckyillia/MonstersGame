@@ -2,13 +2,15 @@
 <html lang="pl-PL">
     <head>
 		<meta charset="utf-8">
+		<title>Monsters Game</title>
 		<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+		<link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
     </head>
     <body>
 		<div class="game">
 			<div class="toolbar">
 				<div class="left">
-					<div class="time">Czas <span>0</span> s</div>
+					<div class="time">Czas <span>0:00</span> s</div>
 					<div class="score">Punkty <span>0</span></div>				
 				</div>
 				<div class="right">
@@ -18,7 +20,9 @@
 			</div>
 			<div class="stage">
 				<div class="box-1">
-					<div class="rock"></div>
+					<div class="rock">
+						
+					</div>
 					<div class="monster  monster-1">
 						<img src="assets/images/monster.png" alt="monster">
 					</div>					
@@ -63,6 +67,14 @@
 						<img src="assets/images/banner.png" alt="banner">
 					</div>
 					<div class="overlay-content">
+						<button class="btn-game-info" id="btn-game-info">?</button>
+						<ol id="game-info">
+							<li>Strzela sie lewym przyciskiem myszy</li>
+							<li>Przeladowanie broni sie prawym przyciskiem myszy</li>
+							<li>Trafienie w przeciwnika daje 10 punktów</li>
+							<li>Trafienie w bossa daje 20 punktów</li>
+							<li>Trafienie w przeszkodę zabiera 5 punktów</li>
+						</ol>
 						<h2 class="result">Podaj swojego nicka</h2>
 						<input type="text" id="nickname" placeholder="Nickname">
 						<button id="btn-game-start" class="btn">Start</button>
